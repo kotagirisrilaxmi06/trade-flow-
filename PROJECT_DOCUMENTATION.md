@@ -1,95 +1,95 @@
 # TradeFlow ERP + CRM Operations Portal
-## Comprehensive Technical & Operational Documentation
+## Executive Technical & Architecture Blueprint
 
 ---
 
 ## 1. Executive Summary & Business Context
 
-**TradeFlow Operations Portal** is a production-ready, full-stack Mini ERP and CRM system engineered specifically for wholesale and distribution enterprises. 
+**TradeFlow Operations Portal** is an enterprise-grade, cloud-native Mini ERP and CRM platform engineered specifically for wholesale, distribution, and supply chain operations.
 
-The application streamlines business-critical workflows across multi-department teams:
-- **Sales Teams**: Lead tracking, customer CRM management, follow-up logs, and sales challan generation.
-- **Warehouse Teams**: Product cataloging, real-time stock management, minimum stock alert tracking, and immutable stock movement logging (IN/OUT).
-- **Accounts Teams**: Financial invoice creation, payment status management, and purchase order tracking.
-- **Administrators**: End-to-end system visibility and role-based access management.
+The system unifies multi-department workflows into a single high-performance dashboard:
+- **Sales & CRM Operations**: Lead lifecycle management, customer profiling, timestamped follow-up logs, and automated sales challan issuance.
+- **Inventory & Warehouse Operations**: SKU tracking, minimum stock alert triggers, automated stock movement logging (IN/OUT), and inventory guardrails preventing negative stock.
+- **Finance & Accounts Operations**: Purchase order tracking, billing invoice generation, and real-time payment status tracking.
+- **Executive Administration**: System-wide role-based access control (RBAC), audit oversight, and operational insights.
 
 ---
 
-## 2. Deployment & Repository Reference
+## 2. Live System Matrix & Submission Credentials
 
-| Component | Target / Environment | URL / Details |
+| System Layer | Environment / Hosting | Target URL / Reference |
 | :--- | :--- | :--- |
-| **GitHub Repository** | Public Source Code | [github.com/kotagirisrilaxmi06/trade-flow-](https://github.com/kotagirisrilaxmi06/trade-flow-) |
-| **Live Frontend App** | Vercel Static Hosting | [trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app](https://trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app) |
-| **Live Backend API** | Vercel Serverless Function | [trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app/health](https://trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app/health) |
-| **Database Server** | Neon Cloud PostgreSQL | PostgreSQL 18.4 (AWS ap-southeast-1) |
+| **GitHub Source Code** | GitHub Cloud Repository | [github.com/kotagirisrilaxmi06/trade-flow-](https://github.com/kotagirisrilaxmi06/trade-flow-) |
+| **Live Web App (UI)** | Vercel Static Hosting | [trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app](https://trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app) |
+| **Live Serverless API** | Vercel Serverless Functions | [trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app/health](https://trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app/health) |
+| **Database Cluster** | Neon Cloud PostgreSQL | PostgreSQL 18.4 (AWS ap-southeast-1) |
 | **API Test Suite** | Postman Collection | [`postman_collection.json`](https://github.com/kotagirisrilaxmi06/trade-flow-/blob/main/postman_collection.json) |
 
+### **Role-Based Access Control Credentials**:
+- **Admin**: `admin@example.com` / `password123` *(Full System Access)*
+- **Sales**: `sales@example.com` / `password123` *(CRM & Challans Workflows)*
+- **Warehouse**: `warehouse@example.com` / `password123` *(Products & Stock Movements)*
+- **Accounts**: `accounts@example.com` / `password123` *(PO & Invoice Workflows)*
+
 ---
 
-## 3. System Architecture & Component Design
+## 3. High-Level Architecture & Technology Stack
 
-The platform uses a **unified monorepo architecture** deployed on Vercel's serverless infrastructure with a cloud-native PostgreSQL backend database.
+The platform is constructed using a **Unified Monorepo Architecture** running serverless on Vercel with an SSL-encrypted PostgreSQL cloud backend.
 
 ```mermaid
 graph TD
-    Client[React 18 + Vite Frontend] -->|HTTP / REST API| VercelEdge[Vercel Edge / Serverless Router]
-    VercelEdge -->|Static Routes| StaticDist[Vite Compiled /dist]
-    VercelEdge -->|API Rewrites /api/*| ServerlessFunc[Vercel Node.js Function /api/index.ts]
-    ServerlessFunc -->|Express App Middleware| ExpressRouter[Express REST API Controllers]
-    ExpressRouter -->|Domain Validation| ChallanLogic[Challan & Stock Validation Logic]
-    ExpressRouter -->|node-postgres Pool| NeonDB[(Neon Cloud PostgreSQL Database)]
+    Client[React 18 + Vite Web App] -->|HTTPS REST API| VercelRouter[Vercel Serverless Gateway]
+    VercelRouter -->|Static Assets| ViteDist[Vite Compiled /dist]
+    VercelRouter -->|API Rewrites /api/*| ServerlessFunc[Serverless Node.js Handler /api/index.ts]
+    ServerlessFunc -->|Express Application| ExpressApp[Express REST API Middleware]
+    ExpressApp -->|Domain Guardrails| InventoryEngine[Atomic Stock & Validation Engine]
+    ExpressApp -->|node-postgres Pool| NeonPostgres[(Neon Cloud PostgreSQL Database)]
 ```
 
-### **Architecture Highlights**:
-1. **Frontend Layer**: Built with React 18, TypeScript, and Vite. Implements a responsive, dark-mode glassmorphic interface with floating logo animations and smooth CSS transitions.
-2. **Serverless API Layer**: Located at `/api/index.ts`, exporting an Express.js application configured for Vercel's Node.js runtime environment.
-3. **Data Access Layer**: `dataStore.ts` manages database queries using `pg.Pool` with SSL verification. Implements auto-schema migration and initial role account seeding upon system initialization.
+### **Tech Stack Breakdown**:
+- **Frontend Core**: React 18, TypeScript, Vite, CSS with glassmorphism aesthetics, brand logo, and smooth micro-animations.
+- **Serverless API**: Node.js, TypeScript, Express.js deployed to Vercel Serverless Functions (`api/index.ts`).
+- **Database Engine**: Neon Cloud PostgreSQL (PostgreSQL 18.4) with connection pooling (`pg.Pool`).
+- **DevOps**: Vercel CI/CD pipeline integrated directly with GitHub `main` branch pushes.
 
 ---
 
-## 4. Core Modules & Business Logic
+## 4. Core Modules & Business Logic Specifications
 
-### **4.1 Authentication & Role-Based Access Control (RBAC)**
+### **4.1 Authentication & Role-Based Access Control**
 Secures system actions based on assigned user roles:
-- **Admin**: Unrestricted read/write access across all system modules.
+- **Admin**: Full read/write access across all system modules.
 - **Sales**: Customer CRM creation, editing, follow-up notes, and draft/confirmed sales challans.
-- **Warehouse**: Product management, manual stock adjustments, and movement history tracking.
+- **Warehouse**: Product cataloging, manual stock adjustments, and movement history auditing.
 - **Accounts**: Purchase order processing and invoice issuance.
-
-#### **Demo Credentials**:
-- **Admin**: `admin@example.com` / `password123`
-- **Sales**: `sales@example.com` / `password123`
-- **Warehouse**: `warehouse@example.com` / `password123`
-- **Accounts**: `accounts@example.com` / `password123`
 
 ---
 
 ### **4.2 Customer CRM Module**
-Manages the complete lifecycle of customer entities:
-- **Customer Attributes**: Name, Mobile, Email, Business Name, GST Number (Optional), Customer Type (`Retail`, `Wholesale`, `Distributor`), Physical Address, Status (`Lead`, `Active`, `Inactive`), and Follow-up Date.
-- **Follow-up Log System**: Allows sales staff to append timestamped note entries to customer records.
+Manages customer entities throughout the sales funnel:
+- **Attributes**: Name, Mobile, Email, Business Name, GST Number (Optional), Customer Type (`Retail`, `Wholesale`, `Distributor`), Physical Address, Status (`Lead`, `Active`, `Inactive`), and Follow-up Date.
+- **Follow-up Log System**: Timestamped history entries appended directly to customer records.
 
 ---
 
-### **4.3 Product & Inventory Module**
-- **Catalog Fields**: Product Name, SKU/Code, Category, Unit Price, Current Stock, Minimum Stock Alert Threshold, and Warehouse Location.
-- **Stock Movement Log**: Automatically records inventory changes with:
-  - Movement Type: `IN` (Receiving stock) or `OUT` (Dispatching stock)
+### **4.3 Product & Inventory Management Engine**
+- **Catalog Fields**: Product Name, SKU/Code, Category, Unit Price, Current Stock, Minimum Stock Alert Quantity, and Warehouse Location.
+- **Immutable Stock Movement Auditing**: Records all stock events:
+  - Movement Type: `IN` (Receiving) or `OUT` (Dispatching)
   - Quantity Changed
-  - Audit Reason & Responsible User
+  - Audit Reason & Responsible User Email
   - ISO Timestamp
 
 ---
 
-### **4.4 Sales Challan Module & Inventory Protection Logic**
-The Sales Challan module includes strict real-world business constraints:
-- **Challan Auto-Numbering**: Formats unique numbers (`CH-YYYYMMDD-XXXX`).
-- **Product Snapshotting**: Stores full product state (name, SKU, price at time of sale) rather than volatile foreign references.
-- **Atomic Stock Validation**:
-  - When a Challan status changes to **`Confirmed`**, the backend validates current stock levels for all line items.
-  - If any product stock is insufficient (`currentStock < requestedQuantity`), the API aborts the transaction and returns HTTP `400 Bad Request` with an explicit error message.
-  - Stock levels are automatically decremented upon successful confirmation.
+### **4.4 Sales Challan Lifecycle & Inventory Guardrails**
+- **Automatic Challan Numbering**: Generates `CH-YYYYMMDD-XXXX`.
+- **Immutable Snapshot Storage**: Stores full product data (name, SKU, unit price) at the time of sale to preserve transaction integrity regardless of future price changes.
+- **Atomic Inventory Guardrail**:
+  - When status changes to **`Confirmed`**, stock availability is checked line by line.
+  - If requested quantity exceeds available stock (`currentStock < quantity`), the API aborts the transaction and returns HTTP `400 Bad Request` with an explicit error message.
+  - On valid confirmation, stock is automatically decremented.
 
 ---
 
@@ -101,7 +101,7 @@ The Sales Challan module includes strict real-world business constraints:
 
 ## 5. Database Schema & Data Models
 
-The system runs on **PostgreSQL** with 6 relational tables utilizing `JSONB` document storage for flexible record metadata:
+The system runs on **PostgreSQL** with relational tables using `JSONB` document payloads for flexible entity management:
 
 ```sql
 -- Users Table
@@ -146,58 +146,50 @@ CREATE TABLE IF NOT EXISTS invoices (
 
 ---
 
-## 6. API Specifications
+## 6. API Endpoint Technical Contract
 
-| Method | Endpoint | Description | Request Body / Parameters |
-| :--- | :--- | :--- | :--- |
-| `GET` | `/health` | Server health check | None |
-| `POST` | `/auth/login` | Authenticate user credentials | `{ "email": "...", "password": "..." }` |
-| `GET` | `/customers` | Fetch all customers | None |
-| `POST` | `/customers` | Create new customer profile | `{ "name": "...", "mobile": "...", ... }` |
-| `PUT` | `/customers/:id` | Update customer record | `{ "status": "Active", ... }` |
-| `POST` | `/customers/:id/follow-ups` | Add customer follow-up note | `{ "note": "Contacted client for order update" }` |
-| `GET` | `/products` | Fetch product catalog & inventory | None |
-| `POST` | `/products` | Add new product | `{ "name": "...", "sku": "...", "unitPrice": 450, "currentStock": 50 }` |
-| `PUT` | `/products/:id` | Update product details | `{ "unitPrice": 480 }` |
-| `POST` | `/products/:id/stock-movements` | Log manual stock adjustment | `{ "quantityChanged": 10, "movementType": "IN", "reason": "Restock" }` |
-| `GET` | `/challans` | Fetch sales challans | None |
-| `POST` | `/challans` | Create sales challan | `{ "customerId": "c1", "items": [...], "status": "Confirmed" }` |
-| `GET` | `/purchase-orders` | Fetch purchase orders | None |
-| `POST` | `/purchase-orders` | Create purchase order | `{ "poNumber": "PO-1001", "supplierName": "Supplier Inc", "items": [...] }` |
-| `GET` | `/invoices` | Fetch customer invoices | None |
-| `POST` | `/invoices` | Generate sales invoice | `{ "invoiceNumber": "INV-5001", "customerId": "c1", "totalAmount": 1200 }` |
+| Method | Endpoint | Description | Expected Status Codes |
+| :--- | :--- | :--- | :---: |
+| `GET` | `/health` | Server status health check | `200` |
+| `POST` | `/auth/login` | User authentication | `200`, `400`, `401` |
+| `GET` | `/customers` | List all customer profiles | `200` |
+| `POST` | `/customers` | Register new customer | `201`, `400` |
+| `PUT` | `/customers/:id` | Update customer record | `200`, `404` |
+| `POST` | `/customers/:id/follow-ups` | Add follow-up note | `201`, `400`, `404` |
+| `GET` | `/products` | List product catalog | `200` |
+| `POST` | `/products` | Create product item | `201`, `400` |
+| `PUT` | `/products/:id` | Update product details | `200`, `404` |
+| `POST` | `/products/:id/stock-movements` | Log stock IN/OUT movement | `201`, `400`, `404` |
+| `GET` | `/challans` | List sales challans | `200` |
+| `POST` | `/challans` | Issue sales challan (with stock checks) | `201`, `400`, `404` |
+| `GET` | `/purchase-orders` | List purchase orders | `200` |
+| `POST` | `/purchase-orders` | Issue purchase order | `201`, `400` |
+| `GET` | `/invoices` | List customer invoices | `200` |
+| `POST` | `/invoices` | Generate sales invoice | `201`, `400`, `404` |
 
 ---
 
-## 7. Environment Variables & Setup Guide
+## 7. Local Setup & Execution Guide
 
-### **Required Environment Variables**
-- **`DATABASE_URL`**: Neon PostgreSQL connection URI (`postgresql://neondb_owner:npg_NYOZ7pKI0VuU@ep-square-cell-az2du0fl.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require`)
-- **`PORT`**: Server execution port for local development (`4000`)
+### **Requirements**
+- Node.js (v18+)
+- npm (v9+)
 
-### **Local Environment Execution**
+### **Commands**
 ```bash
-# 1. Clone the project repository
+# 1. Clone repository
 git clone https://github.com/kotagirisrilaxmi06/trade-flow-.git
 cd trade-flow-
 
-# 2. Install all root and subpackage dependencies
+# 2. Install dependencies
 npm install
 
-# 3. Start local development environment
+# 3. Environment configuration (.env)
+DATABASE_URL=postgresql://neondb_owner:npg_NYOZ7pKI0VuU@ep-square-cell-az2du0fl.c-3.ap-southeast-1.aws.neon.tech/neondb?sslmode=require
+
+# 4. Start development mode
 npm run dev
 
-# 4. Build production static bundle & verify TypeScript compilation
+# 5. Build production bundle
 npm run build
 ```
-
----
-
-## 8. Verification & Case Study Checklist
-
-- [x] **Backend REST API**: Node.js + Express + TypeScript with full error handling.
-- [x] **Frontend Admin UI**: Responsive React UI featuring modern glassmorphism, brand logo, and CSS animations.
-- [x] **PostgreSQL Integration**: Live connection to Neon Cloud PostgreSQL with seed data.
-- [x] **Core Business Logic**: Inventory validation, non-negative stock protection, challan numbering.
-- [x] **Vercel Cloud Deployment**: Production web hosting with serverless API integration.
-- [x] **Full Case Study Documentation**: Detailed README, deployment steps, and Postman API collection.
