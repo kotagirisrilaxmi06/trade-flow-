@@ -4,9 +4,7 @@
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
   "functions": {
-    "api/index.ts": {
-      "runtime": "@vercel/node@5"
-    }
+    "api/index.ts": {}
   },
   "routes": [
     { "src": "/auth/(.*)", "dest": "/api/index.ts" },
