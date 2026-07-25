@@ -4,8 +4,13 @@ import { fileURLToPath } from 'node:url';
 import type { AppState } from './types.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dataDirectory = path.resolve(process.env.DATA_DIRECTORY || path.join(__dirname, '..', 'data'));
-const dataFilePath = path.resolve(process.env.DATA_FILE_PATH || path.join(dataDirectory, 'app-data.json'));
+const isVercel = process.env.VERCEL === '1';
+const dataDirectory = path.resolve(
+  process.env.DATA_DIRECTORY || (isVercel ? '/tmp' : path.join(__dirname, '..', 'data'))
+);
+const dataFilePath = path.resolve(
+  process.env.DATA_FILE_PATH || path.join(dataDirectory, 'app-data.json')
+);
 
 const seedState: AppState = {
   users: [

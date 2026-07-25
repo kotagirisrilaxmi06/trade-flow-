@@ -1,0 +1,20 @@
+{
+  "name": "tradeflow-erp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.3",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "@vercel/node": "^5.0.0",
+    "typescript": "^5.8.3"
+  }
+}

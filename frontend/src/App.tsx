@@ -81,7 +81,7 @@ function App() {
   const [followUpText, setFollowUpText] = useState('');
   const [purchaseOrderForm, setPurchaseOrderForm] = useState({ poNumber: '', supplierName: '', totalAmount: '0', status: 'Draft' as 'Draft' | 'Approved' | 'Received' });
   const [invoiceForm, setInvoiceForm] = useState({ invoiceNumber: '', customerId: '', dueDate: '', totalAmount: '0', status: 'Draft' as 'Draft' | 'Issued' | 'Paid' });
-  const apiBase = (import.meta.env.VITE_API_URL || '/api').replace(/\/$/, '');
+  const apiBase = (import.meta.env.VITE_API_URL ?? '').replace(/\/$/, '');
 
   const fetchData = async () => {
     try {
