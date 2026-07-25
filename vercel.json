@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "outputDirectory": "frontend/dist",
+  "outputDirectory": "dist",
   "routes": [
     { "src": "/auth/(.*)", "dest": "/api/index.ts" },
     { "src": "/customers(.*)", "dest": "/api/index.ts" },
