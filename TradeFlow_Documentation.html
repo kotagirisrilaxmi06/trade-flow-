@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TradeFlow ERP + CRM Operations Portal - Documentation</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.6;
+      background: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .header-banner {
+      background: linear-gradient(135deg, #0284c7, #1e40af);
+      color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    .header-banner h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+    }
+    .header-banner p {
+      margin: 0;
+      opacity: 0.9;
+      font-size: 14px;
+    }
+    .eyebrow {
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 11px;
+      font-weight: 800;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #0f172a;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 8px;
+      margin-top: 30px;
+      font-size: 20px;
+    }
+    h3 {
+      color: #0284c7;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    code, pre {
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+      font-size: 12px;
+    }
+    pre {
+      padding: 14px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-green { background: #dcfce7; color: #166534; }
+    .badge-blue { background: #e0f2fe; color: #075985; }
+    .badge-amber { background: #fef3c7; color: #92400e; }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-banner">
+    <span class="eyebrow">Enterprise Case Study Submission</span>
+    <h1>TradeFlow ERP + CRM Operations Portal</h1>
+    <p>Comprehensive Technical Blueprint, System Architecture, API Contract & Operational Specifications</p>
+  </div>
+
+  <h2>1. Executive Summary & Business Context</h2>
+  <p><strong>TradeFlow Operations Portal</strong> is a production-ready full-stack Mini ERP and CRM system built for wholesale and distribution enterprises. The platform integrates sales management, customer CRM tracking, real-time inventory guardrails, purchase order fulfillment, and financial invoicing into an executive dark-mode dashboard.</p>
+  
+  <ul>
+    <li><strong>Sales & CRM</strong>: Customer lead lifecycle management, classification (Retail, Wholesale, Distributor), and timestamped follow-up interaction history.</li>
+    <li><strong>Warehouse & Inventory</strong>: Real-time stock tracking, minimum stock alert triggers, and immutable stock movement logging (IN/OUT).</li>
+    <li><strong>Sales Challans Engine</strong>: Automatic numbering (<code>CH-YYYYMMDD-XXXX</code>), immutable product snapshotting, and atomic stock validation preventing negative stock.</li>
+    <li><strong>Accounts & Finance</strong>: Supplier purchase order tracking and customer billing invoice creation.</li>
+  </ul>
+
+  <h2>2. Live System Deployment Matrix</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Hosting Platform</th>
+        <th>Live URL / Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Source Code</strong></td>
+        <td>GitHub Cloud</td>
+        <td>https://github.com/kotagirisrilaxmi06/trade-flow-</td>
+      </tr>
+      <tr>
+        <td><strong>Frontend Web App</strong></td>
+        <td>Vercel Static Hosting</td>
+        <td>https://trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app</td>
+      </tr>
+      <tr>
+        <td><strong>Backend REST API</strong></td>
+        <td>Vercel Serverless Functions</td>
+        <td>https://trade-flow-cnc8oix2v-kotagirisrilaxmi06s-projects.vercel.app/health</td>
+      </tr>
+      <tr>
+        <td><strong>Database Engine</strong></td>
+        <td>Neon Cloud PostgreSQL</td>
+        <td>PostgreSQL 18.4 (AWS ap-southeast-1)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Role-Based Access Credentials</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Role</th>
+        <th>Email Address</th>
+        <th>Password</th>
+        <th>Permissions Scope</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="badge badge-green">Admin</span></td>
+        <td>admin@example.com</td>
+        <td>password123</td>
+        <td>Full System Access Across All Modules</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-blue">Sales</span></td>
+        <td>sales@example.com</td>
+        <td>password123</td>
+        <td>Customer CRM, Follow-ups & Challans Generation</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-amber">Warehouse</span></td>
+        <td>warehouse@example.com</td>
+        <td>password123</td>
+        <td>Product Stock Catalog & Stock IN/OUT Movements</td>
+      </tr>
+      <tr>
+        <td><span class="badge badge-blue">Accounts</span></td>
+        <td>accounts@example.com</td>
+        <td>password123</td>
+        <td>Financial Invoices & Purchase Order Tracking</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <h2>3. System Architecture & Tech Stack</h2>
+  <p>The system utilizes a <strong>Unified Monorepo Architecture</strong> deployed on Vercel's serverless infrastructure with an SSL-encrypted PostgreSQL backend.</p>
+
+  <ul>
+    <li><strong>Frontend</strong>: React 18, TypeScript, Vite, CSS with glassmorphism aesthetics, brand logo, and smooth micro-animations.</li>
+    <li><strong>Serverless API</strong>: Node.js, TypeScript, Express.js deployed to Vercel Serverless Functions at <code>/api/index.ts</code>.</li>
+    <li><strong>Database Layer</strong>: Neon Cloud PostgreSQL (PostgreSQL 18.4) with Node <code>pg.Pool</code> connection pooling.</li>
+  </ul>
+
+  <h2>4. Database Schema DDL</h2>
+  <pre>
+-- Users Table
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  role TEXT NOT NULL
+);
+
+-- Customers Table
+CREATE TABLE IF NOT EXISTS customers (
+  id TEXT PRIMARY KEY,
+  data JSONB NOT NULL
+);
+
+-- Products Table
+CREATE TABLE IF NOT EXISTS products (
+  id TEXT PRIMARY KEY,
+  data JSONB NOT NULL
+);
+
+-- Challans Table
+CREATE TABLE IF NOT EXISTS challans (
+  id TEXT PRIMARY KEY,
+  data JSONB NOT NULL
+);
+
+-- Purchase Orders Table
+CREATE TABLE IF NOT EXISTS purchase_orders (
+  id TEXT PRIMARY KEY,
+  data JSONB NOT NULL
+);
+
+-- Invoices Table
+CREATE TABLE IF NOT EXISTS invoices (
+  id TEXT PRIMARY KEY,
+  data JSONB NOT NULL
+);
+  </pre>
+
+  <h2>5. REST API Technical Specifications</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Method</th>
+        <th>Endpoint</th>
+        <th>Description</th>
+        <th>Status Codes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>GET</code></td>
+        <td>/health</td>
+        <td>System Health Status Check</td>
+        <td>200 OK</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/auth/login</td>
+        <td>User Login Authentication</td>
+        <td>200, 400, 401</td>
+      </tr>
+      <tr>
+        <td><code>GET</code></td>
+        <td>/customers</td>
+        <td>List All Customer Profiles</td>
+        <td>200 OK</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/customers</td>
+        <td>Register New Customer</td>
+        <td>201 Created, 400</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/customers/:id/follow-ups</td>
+        <td>Add Customer Follow-up Note</td>
+        <td>201 Created, 400</td>
+      </tr>
+      <tr>
+        <td><code>GET</code></td>
+        <td>/products</td>
+        <td>List Product Catalog & Stock</td>
+        <td>200 OK</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/products</td>
+        <td>Add Product to Catalog</td>
+        <td>201 Created, 400</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/products/:id/stock-movements</td>
+        <td>Log Manual Stock Adjustment (IN/OUT)</td>
+        <td>201 Created, 400</td>
+      </tr>
+      <tr>
+        <td><code>GET</code></td>
+        <td>/challans</td>
+        <td>List Issued Sales Challans</td>
+        <td>200 OK</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/challans</td>
+        <td>Issue Sales Challan with Atomic Stock Check</td>
+        <td>201 Created, 400</td>
+      </tr>
+      <tr>
+        <td><code>GET</code></td>
+        <td>/invoices</td>
+        <td>List Billing Invoices</td>
+        <td>200 OK</td>
+      </tr>
+      <tr>
+        <td><code>POST</code></td>
+        <td>/invoices</td>
+        <td>Issue Billing Invoice</td>
+        <td>201 Created, 400</td>
+      </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>
