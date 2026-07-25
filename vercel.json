@@ -3,9 +3,6 @@
   "installCommand": "npm install && cd frontend && npm install",
   "buildCommand": "cd frontend && npm run build",
   "outputDirectory": "frontend/dist",
-  "functions": {
-    "api/index.ts": {}
-  },
   "routes": [
     { "src": "/auth/(.*)", "dest": "/api/index.ts" },
     { "src": "/customers(.*)", "dest": "/api/index.ts" },
