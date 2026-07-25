@@ -315,10 +315,13 @@ function App() {
   return (
     <div className="app-shell">
       <header className="hero">
-        <div>
-          <p className="eyebrow">Mini ERP + CRM</p>
-          <h1>TradeFlow Operations Portal</h1>
-          <p>End-to-end workflow for customers, inventory, purchasing, challans, and invoices.</p>
+        <div className="brand-wrapper">
+          <img src="/logo.png" alt="TradeFlow Operations Portal Logo" className="app-logo" />
+          <div className="brand-text">
+            <span className="eyebrow">Mini ERP + CRM</span>
+            <h1>TradeFlow Operations Portal</h1>
+            <p>End-to-end workflow for customers, inventory, purchasing, challans, and invoices.</p>
+          </div>
         </div>
         {!user ? (
           <form className="login-card" onSubmit={handleLogin}>
