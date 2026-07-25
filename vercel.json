@@ -1,16 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
-    },
-    {
-      "src": "api/index.ts",
-      "use": "@vercel/node"
+  "installCommand": "npm install && cd frontend && npm install",
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/dist",
+  "functions": {
+    "api/index.ts": {
+      "runtime": "@vercel/node@5"
     }
-  ],
+  },
   "routes": [
     { "src": "/auth/(.*)", "dest": "/api/index.ts" },
     { "src": "/customers(.*)", "dest": "/api/index.ts" },
@@ -19,6 +16,7 @@
     { "src": "/purchase-orders(.*)", "dest": "/api/index.ts" },
     { "src": "/invoices(.*)", "dest": "/api/index.ts" },
     { "src": "/health", "dest": "/api/index.ts" },
-    { "src": "/(.*)", "dest": "/frontend/$1" }
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
